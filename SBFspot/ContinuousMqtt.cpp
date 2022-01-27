@@ -80,24 +80,28 @@ int continuousMqtt(InverterData *Inverters[], Config *cfg)
 
     while (!_interrupted)
     {
+        
         getInverterData(Inverters, EnergyProduction);
-        if ((rc = getInverterData(Inverters, SpotDCPower)) != 0)
-                std::cerr << "getSpotDCPower returned an error: " << rc << std::endl;
+        
+        // start removed by Bart
+        // if ((rc = getInverterData(Inverters, SpotDCPower)) != 0)
+        //         std::cerr << "getSpotDCPower returned an error: " << rc << std::endl;
 
-        if ((rc = getInverterData(Inverters, SpotDCVoltage)) != 0)
-        {
-                std::cerr << "getSpotDCVoltage returned an error: " << rc << std::endl;
-                break;
-        }
+        // if ((rc = getInverterData(Inverters, SpotDCVoltage)) != 0)
+        // {
+        //         std::cerr << "getSpotDCVoltage returned an error: " << rc << std::endl;
+        //         break;
+        // }
 
-        if ((rc = getInverterData(Inverters, SpotACTotalPower)) != 0)
-        {
-                std::cerr << "getSpotDCVoltage returned an error: " << rc << std::endl;
-                break;
-        }
+        // if ((rc = getInverterData(Inverters, SpotACTotalPower)) != 0)
+        // {
+        //         std::cerr << "getSpotDCVoltage returned an error: " << rc << std::endl;
+        //         break;
+        // }
+        // end removed by Bart
 
         //Calculate missing DC Spot Values
-        CalcMissingSpot(Inverters[0]);
+        ////CalcMissingSpot(Inverters[0]);
 
         rc = mqtt_publish(cfg, Inverters);
 
